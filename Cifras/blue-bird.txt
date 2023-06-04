@@ -1,0 +1,115 @@
+Blue Bird
+F#m
+[Intro]
+
+      <b>D</b> <b>C#m</b> <b>F#m</b>      <b>D</b> <b>E</b>    <b>A</b>
+Habataitara modora nai to itte
+       <b>D</b>  <b>C#m</b>  <b>F#m</b>  <b>Bm7</b>   <b>C#m7</b>  <b>F#m7</b>
+Mezashita no wa aoi aoi ano sora
+
+( <b>D</b>  <b>E</b>  <b>C#m7</b>  <b>F#m</b> )
+( <b>Bm7</b>  <b>C#7</b> )
+( <b>D</b>  <b>E</b>  <b>C#m7</b>  <b>F#m</b> )
+( <b>Bm7</b>  <b>C#7</b> )
+
+[Primeira Parte]
+
+       <b>F#m</b>        <b>E</b>    <b>D</b>     <b>C#m7</b>
+"Kanashimi" ha mada oboerarezu
+        <b>Bm7</b>      <b>Bm7/A</b>          <b>E/G#</b>    <b>C#7</b>
+"Setsunasa" ha ima tsukami hajimeta
+      <b>F#m</b>    <b>E</b>        <b>D</b>     <b>C#m7</b>
+Anata he to ida kono kanjou mo
+        <b>Bm7</b>    <b>E</b>    <b>F#m</b>
+Ima "kotoba" ni kawatteiku
+
+[Pré-Refrão]
+
+       <b>D</b>     <b>D7M</b>       <b>C#m7</b>      <b>F#m7</b>
+Michinaru sekai no yume kara mezamete
+       <b>Bm7</b>                <b>C#7</b>
+Kono hane wo hiroge tobitatsu
+
+[Refrão]
+
+     <b>D</b> <b>C#m</b> <b>F#m</b>      <b>D</b> <b>E</b>    <b>A</b>
+Habataitara modora nai to itte
+       <b>D</b>  <b>C#m</b>  <b>F#m7</b>  <b>D</b>  <b>E</b>   <b>F#m7</b>
+Mezashita no wa shiroi shiroi ano kumo
+       <b>D</b> <b>C#m</b> <b>F#m7</b>      <b>D</b> <b>E</b>    <b>A</b>
+Tsukinuketara mitsukaru to shiitte
+      <b>D</b>  <b>C#m</b>  <b>F#m7</b>  <b>D</b>  <b>E</b>   <b>F#m7</b>
+Furikiru hodo aoi aoi ano sora
+  <b>D</b>   <b>E</b>  <b>F#m7</b>
+Aoi aoi ano sora
+  <b>D</b>   <b>E</b>  <b>F#m7</b>
+Aoi aoi ano sora
+
+( <b>D</b>  <b>E</b>  <b>C#m7</b>  <b>F#m</b> ) 
+( <b>Bm7</b>  <b>C#7</b> )
+
+[Segunda Parte]
+
+   <b>F#m</b>        <b>E</b>    <b>D</b>     <b>C#m7</b>
+Aisou tsuki dayo onna oto de
+     <b>Bm7</b>      <b>Bm7/A</b>          <b>E/G#</b>    <b>C#7</b>
+Sabireta furui mado wa kowareta
+     <b>F#m</b>    <b>E</b>        <b>D</b>     <b>C#m7</b>
+Miekita konowa hora skateiku
+      <b>Bm7</b>    <b>E</b>    <b>F#m</b>
+Furikaeru koto wa mou nai
+
+[Pré-Refrão]
+
+       <b>D</b>     <b>D7M</b>       <b>C#m7</b>      <b>F#m7</b>
+Michinaru sekai no yume kara mezamete
+       <b>Bm7</b>                <b>C#7</b>
+Kono hane wo hiroge tobitatsu
+
+[Refrão]
+
+     <b>D</b> <b>C#m</b> <b>F#m</b>      <b>D</b> <b>E</b>    <b>A</b>
+Habataitara modora nai to itte
+       <b>D</b>  <b>C#m</b>  <b>F#m</b>  <b>D</b>  <b>E</b>   <b>F#m7</b>
+Mezashita no wa shiroi shiroi ano kumo
+       <b>D</b> <b>C#m</b> <b>F#m</b>      <b>D</b> <b>E</b>    <b>A</b>
+Tsukinuketara mitsukaru to shiitte
+      <b>D</b>  <b>C#m</b>  <b>F#m</b>  <b>D</b>  <b>E</b>   <b>F#m7</b>
+Furikiru hodo aoi aoi ano sora
+  <b>D</b>   <b>E</b>  <b>F#m</b>
+Aoi aoi ano sora
+  <b>D</b>   <b>E</b>  <b>F#m</b>
+Aoi aoi ano sora
+
+[Solo] <b>D</b>  <b>E</b>  <b>C#m7</b>  <b>F#m</b>  
+       <b>Bm7</b>  <b>C#m7</b>  <b>C#7</b>
+
+[Ponte]
+
+  <b>D</b>
+Otsutei kuto
+  <b>C#m7</b>
+Watare te ita
+ <b>Bm7</b>     <b>C#m7</b>  
+Sore demo hikari wo
+  <b>D7M</b>       <b>C#7</b>
+Oitsuzukete kuyo
+
+[Refrão]
+
+     <b>D</b> <b>C#m</b> <b>F#m</b>      <b>D</b> <b>E</b>    <b>A</b>
+Habataitara modora nai to itte
+       <b>D</b>  <b>C#m</b>  <b>F#m</b>  <b>D</b>  <b>E</b>   <b>F#m7</b>
+Mezashita no wa shiroi shiroi ano kumo
+       <b>D</b> <b>C#m</b> <b>F#m</b>      <b>D</b> <b>E</b>    <b>A</b>
+Tsukinuketara mitsukaru to shiitte
+      <b>D</b>  <b>C#m</b>  <b>F#m</b>  <b>D</b>  <b>E</b>   <b>F#m7</b>
+Furikiru hodo aoi aoi ano sora
+  <b>D</b>   <b>E</b>  <b>F#m</b>
+Aoi aoi ano sora
+  <b>D</b>   <b>E</b>  <b>F#m</b>
+Aoi aoi ano sora
+
+[Final] <b>D</b>  <b>E</b>  <b>C#m7</b>  <b>F#m</b>  
+        <b>Bm7</b>  <b>C#7(4)</b>  <b>C#7</b>
+        <b>C#7</b>  <b>F#m</b>

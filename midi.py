@@ -6,12 +6,24 @@ deviceIn = midi.Input(1)
 #eviceOut = midi.Output(3)
 
 NOTAS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
-MODS = ["", "m", "2", "4", "(5b)", "7M", "7", "9"]
+BEMOL = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+MODS = ["", "sus2", "sus4", "sus", "m", "(5b)", "7M", "7", "9", "11"]
 
-def limpar(nota):
-    for i in MODS:
-        nota = nota.replace(i, "")
+def limpar(nota, mod=0):
+    if mod == 0:
+        for i in MODS:
+            nota = nota.replace(i, "")
+    else:
+        nota = nota.replace("sus2", "").replace("sus4", "").replace("sus", "")
+
+    ind = nota.find("/")
+    if ind != -1:
+        nota = nota[0:ind]
     return nota
+
+def bemol(acorde):
+    a = limpar(acorde)
+    return acorde.replace(a, BEMOL[NOTAS.index(a)])
 
 def calcularCampHarm(escala, emnotas):
     padrão = ["MmmMMmd","mdMmmMM"]
@@ -32,42 +44,93 @@ pressionadas = []
 def identificarAcorde():
     global pressionadas
     refresh()
+    pressionadas = []
     acorde = "?"
+    difp = []
     while True:
-        resultado = refresh(5)
-        if resultado:    
+        resultado = refresh(20)
+        if resultado:
+            #Organizar por altura
+            alturasA = []
+            alturasO = []
+            difp = []
+            org = []
+            for p in pressionadas:
+                alturasO.append((NOTAS.index(p[0]))+p[1]*12)
+                alturasA.append((NOTAS.index(p[0]))+p[1]*12)
+            alturasO.sort()
+            for i in alturasO:
+                ind = alturasA.index(i)
+                org.append(pressionadas[ind])
+            pressionadas = org
+
+            for p in pressionadas:
+                if p[0] not in difp:
+                    difp.append(p[0])
+
             pos = []
+
             for a in DICACORDES.keys():
                 ac = DICACORDES[a]
                 ok = True
-                for nn in pressionadas:
-                    if ac.count(nn) == 0 or len(ac) > len(pressionadas):
+                #print(a)
+                for n in range(len(ac)):
+                    if ac[n] not in difp:
                         ok = False
+                for n in range(len(difp)):
+                    if difp[n] not in ac:
+                        ok = False
+                if a.find("sus2(5b)") != -1:
+                    ok = False
                 if ok:
+                    #print(a, ac, difp)
                     pos.append(a)
             if pos.count(acorde) == 0:
                 acorde = "?"
-                if len(pressionadas) >= 4:
-                    pressionadas = []
+
+            for p in pos:
+                if p.find("sus4") != -1:
+                    pos.remove(p)
+                    break
+            
+            baixan = pressionadas[0][0]
+            
+            if len(pos) == 2:
+                for p in pos:
+                    if baixan == DICACORDES[p][0]:
+                        pos = [p]
+
             if len(pos) == 1:
                 acorde = pos[0]
+                if baixan != DICACORDES[acorde][0] and baixan != "":
+                    acorde = acorde + f"/{baixan}"
                 return acorde
-                
+                    
 def identificarNota(event):
     oitava = int(event[0][1]/12)
     nota = NOTAS[event[0][1] - oitava*12]
     
-    return nota, oitava-2
+    return nota, oitava-2, event[0][1]
+
+def toqueAcorde(acorde):
+    nts = calcularAcorde(acorde)
+    tocarNotas(nts)
 
 def detecção(nota):
+    sus2 = 1 if nota.find("sus2") != -1 else 0
+    if not sus2:
+        sus4 = 1 if nota.find("sus") != -1 else 0
+    else:
+        sus4 = 0
     menor = 1 if nota.find("m") != -1 else 0
-    segunda = 1 if nota.find("2") != -1 else 0
-    quarta = 1 if nota.find("4") != -1 else 0
+    if menor:
+        sus2, sus4 = 0, 0
     qBemol = 1 if nota.find("(5b)") != -1 else 0
     sétima = 1 if nota.find("7") != -1 else 0
     sétima = 2 if nota.find("7M") != -1 else sétima
     nona = 1 if nota.find("9") != -1 else 0
-    return limpar(nota), menor, segunda, quarta, qBemol, sétima, nona
+    decimaPrimeira = 1 if nota.find("11") != -1 else 0
+    return limpar(nota), menor, sus2, sus4, qBemol, sétima, nona, decimaPrimeira
 
 o = midi.Output(3)
 
@@ -104,24 +167,36 @@ def calcularEscala(nota):
     return notasEscala
 
 força = 0
+sustain = False
+pP = False
 def refresh(buffer=1000):
     global pressionadas
+    global sustain, pP
     for event in deviceIn.read(buffer):
-        if event[0][0] == 144 and event[0][2] > 0:
-            força = event[0][2]
-            n = identificarNota(event)
-            if n[0] not in pressionadas:
-                pressionadas.append(n[0])
-            return n, 1, força
-        else:
-            if event[0][0] == 144 and event[0][2] == 0:
+        if event[0][0] in [176, 177]:
+            sustain = event[0][2] > 0
+
+        if event[0][0] in [144, 145]:
+            if event[0][2] > 0:
+                pP = False
+                força = event[0][2]
                 n = identificarNota(event)
-                if n[0] in pressionadas:
-                    pressionadas.remove(n[0])
+                if n not in pressionadas:
+                    pressionadas.append(n)
+                return n, 1, força
+            else:
+                pP = True
+                if not sustain:
+                    n = identificarNota(event)
+                    if n in pressionadas:
+                        pressionadas.remove(n)
+        if not sustain and pP:
+            for n in pressionadas:
+                pressionadas.remove(n)
 
 def calcularAcorde(escala, grau=1):
     padrão = ["MmmMMmd","mdMmmMM"]
-    escala, menor, segunda, quarta, qBemol, sétima, nona = detecção(escala)
+    escala, menor, sus2, sus4, qBemol, sétima, nona, decimaPrimeira = detecção(escala)
         
     indexes = [0, 2, 4]
     notas = calcularEscala(escala)
@@ -137,38 +212,63 @@ def calcularAcorde(escala, grau=1):
         if i == 4 and padrão[menor][grau-1] == "d":
             n.append(NOTAS[NOTAS.index(notas[i])-1])
         else:
-            if i == 2 and segunda:
-                n.append(NOTAS[NOTAS.index(notas[i])-2])
-            if i == 4 and quarta:
-                n.append(NOTAS[NOTAS.index(notas[i])-2])
-            n.append(notas[i])
+            #if i == 2 and segunda:
+                #n.append(NOTAS[NOTAS.index(notas[i])-2])
+            if i == 2:
+                if sus2:
+                    n.append(NOTAS[NOTAS.index(notas[i])-2+menor])
+                if sus4:
+                    n.append(NOTAS[(NOTAS.index(notas[i])+1+menor)%12])
+            if not sus2 and not sus4 or i != 2:
+                n.append(notas[i])
+            if i == 4 and nona:
+                n.append(NOTAS[(NOTAS.index(notas[1]))%12])
+            if i == 4 and decimaPrimeira:
+                    n.append(NOTAS[(NOTAS.index(notas[i])+1+menor)%12])
     if sétima != 0:
         n.append(NOTAS[(NOTAS.index(notas[6])+sétima-2+menor)%12])
     if qBemol:
         n[2] = NOTAS[(NOTAS.index(n[2])-1)%12]
-    if nona:
-            n.append(notas[1])
     return n
 
 def organizar(ac):
     res = limpar(ac)
     sM = True if ac.find("7M") != -1 else False
-    if sM:
-        ac = ac.replace("7M", "")
-    for mod in ['m', '2', '4', '(5b)', '7', '9']:
+    s4 = True if ac.find("sus4") != -1 and ac.find("m") == -1 else False
+    s2 = True if ac.find("sus2") != -1 and ac.find("m") == -1 else False
+    ac = ac.replace("sus", "") if ac.find("m") != -1 else ac
+    ac = ac.replace("7M", "").replace("sus4", "").replace("sus2", "")
+    for mod in ["m", "sus", "(5b)", "7" if not sM else "", "9" if not s2 else "", "11" if not s4 else ""]:
         if ac.find(mod) != -1:
             res += mod
         if mod == '(5b)' and sM:
             res += "7M"
+        if mod == 'm' and s2:
+            res += "sus2"
+        if mod == 'm' and s4:
+            res += "sus4"
     return res
+
+def val(ac, mod):
+    ac + mod
+    ac = ac.replace("sus2", "") if mod in {"sus", "sus4"} else ac
+    ac = ac.replace("sus4", "") if mod in {"sus", "sus2"} else ac
+    ac = ac.replace("7M", "") if mod == "7" != -1 else ac
+    return ac + mod
 
 DICACORDES = {}
 for n in NOTAS:
     for mod in MODS:
+        #["", "m", "sus2", "sus4", "sus", "(5b)", "7M", "7", "9", "11"]
         ac = n+mod
+            
         DICACORDES[ac] = calcularAcorde(ac)
-        for mod2 in [m for m in MODS if m != mod]:
-            if [mod, mod2] not in [["7", "7M"], ["7M", "7"]]:
-                ac = ac+mod2
-                DICACORDES[organizar(ac)] = calcularAcorde(ac)
+        for mod2 in MODS:
+             if ac.find(mod2) == -1:
+                ac = val(ac, mod2)
+                if mod not in {"7", "7M"} or mod2 not in {"7", "7M"}:
+                    if mod not in {"sus2", "sus4", "sus"} or mod2 not in {"sus2", "sus4", "sus"}:
+                        ac = ac+mod2
+                        o = organizar(ac)
+                        DICACORDES[o] = calcularAcorde(o)
     
