@@ -3,7 +3,6 @@ import time
 midi.init()
 
 deviceIn = midi.Input(1)
-#eviceOut = midi.Output(3)
 
 NOTAS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 BEMOL = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
@@ -23,9 +22,9 @@ def limpar(nota, mod=0):
 
 def bemol(acorde):
     a = limpar(acorde)
-    return acorde.replace(a, BEMOL[NOTAS.index(a)])
+    return acorde.replace(a, BEMOL[NOTAS.index(a)]).replace("sus2", "9")
 
-def calcularCampHarm(escala, emnotas):
+def calcularCampHarm(escala, emnotas, menor=0):
     padrão = ["MmmMMmd","mdMmmMM"]
     campo = []
     if emnotas:
@@ -43,12 +42,11 @@ def calcularCampHarm(escala, emnotas):
 pressionadas = []
 def identificarAcorde():
     global pressionadas
-    refresh()
     pressionadas = []
     acorde = "?"
     difp = []
     while True:
-        resultado = refresh(20)
+        resultado = refresh(15)
         if resultado:
             #Organizar por altura
             alturasA = []
@@ -73,7 +71,6 @@ def identificarAcorde():
             for a in DICACORDES.keys():
                 ac = DICACORDES[a]
                 ok = True
-                #print(a)
                 for n in range(len(ac)):
                     if ac[n] not in difp:
                         ok = False
@@ -83,7 +80,6 @@ def identificarAcorde():
                 if a.find("sus2(5b)") != -1:
                     ok = False
                 if ok:
-                    #print(a, ac, difp)
                     pos.append(a)
             if pos.count(acorde) == 0:
                 acorde = "?"
@@ -132,12 +128,11 @@ def detecção(nota):
     decimaPrimeira = 1 if nota.find("11") != -1 else 0
     return limpar(nota), menor, sus2, sus4, qBemol, sétima, nona, decimaPrimeira
 
-o = midi.Output(3)
+#o = midi.Output(3)
 
 def tocarNotas(notasPT, oit=2, força=127, duração=1):
     maior = -1
     for n in notasPT:
-        #print(notas.index(n) + 12*3)
         if NOTAS.index(n) < maior:
             oit += 1
         o.note_on(NOTAS.index(n) + 12*3 + oit*12, força, 0)
@@ -190,6 +185,7 @@ def refresh(buffer=1000):
                     n = identificarNota(event)
                     if n in pressionadas:
                         pressionadas.remove(n)
+        
         if not sustain and pP:
             for n in pressionadas:
                 pressionadas.remove(n)
@@ -212,8 +208,6 @@ def calcularAcorde(escala, grau=1):
         if i == 4 and padrão[menor][grau-1] == "d":
             n.append(NOTAS[NOTAS.index(notas[i])-1])
         else:
-            #if i == 2 and segunda:
-                #n.append(NOTAS[NOTAS.index(notas[i])-2])
             if i == 2:
                 if sus2:
                     n.append(NOTAS[NOTAS.index(notas[i])-2+menor])
