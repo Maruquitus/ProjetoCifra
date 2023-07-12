@@ -43,5 +43,14 @@ Contém várias funções para trabalhar com conceitos de teoria musical e recon
 
 ## main.py
 Jogo em que você tem que tocar o próximo acorde da música.
-De início, você deve escolher uma música já baixada ou então inserir o url do cifraclub para baixar uma nova.
-![image](https://github.com/Maruquitus/ProjetoCifra/assets/58173530/e3984e1e-8aa9-412b-9a70-8434aa67def8)
+### De início, você deve escolher uma música já baixada ou então inserir o url do Cifra Club para baixar uma nova.
+![image](https://github.com/Maruquitus/ProjetoCifra/assets/58173530/a3744478-f5b1-4112-8319-5db83c01cc2a)
+
+### O script baixa o html da seção do site que contém a cifra e o salva como um arquivo .txt.
+![html](https://github.com/Maruquitus/ProjetoCifra/assets/58173530/36d29d56-d566-4553-aeb0-3af193341386)
+
+### Após baixar/escolher uma música, a tela principal é mostrada.
+Essa tela mostra o título, tom da música, um scroll contendo a cifra sem os acordes e, ao final, o último acorde tocado.
+![Animacao](https://github.com/Maruquitus/ProjetoCifra/assets/58173530/86cba2ab-8102-4b1d-8374-0a1724ce5c32)
+
+
