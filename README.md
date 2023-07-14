@@ -1,7 +1,12 @@
-# Projeto Cifra
-Desenvolvido para me ajudar a aprender a pegar músicas de ouvido através do meu teclado midi.
+# 🎵 Projeto Cifra
+Desenvolvido utilizando Python para me ajudar a aprender a pegar músicas de ouvido através do meu teclado midi.
 
-## Códigos
+### 🚀 Bibliotecas 
+* Pygame
+* Selenium
+* Colorama
+
+## 👨‍💻 Códigos
 ### midi.py
 Contém várias funções para trabalhar com conceitos de teoria musical e reconhecimento através de midi.
 
