@@ -56,6 +56,7 @@ Jogo em que você tem que tocar o próximo acorde da música.
 
 ### Após baixar/escolher uma música, a tela principal é mostrada.
 Essa tela mostra o título, tom da música, um scroll contendo a cifra sem os acordes e, ao final, o último acorde tocado.
+
 ![Animacao](https://github.com/Maruquitus/ProjetoCifra/assets/58173530/86cba2ab-8102-4b1d-8374-0a1724ce5c32)
 
 
